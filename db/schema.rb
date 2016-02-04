@@ -12,53 +12,52 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20160204090844) do
-
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "delayed_jobs", force: :cascade do |t|
-    t.integer  "priority",   default: 0, null: false
-    t.integer  "attempts",   default: 0, null: false
-    t.text     "handler",                null: false
-    t.text     "last_error"
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
-    t.string   "locked_by"
-    t.string   "queue"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table 'blogposts', force: :cascade do |t|
+    t.string   'subj'
+    t.text     'content'
+    t.inet     'autor_ip'
+    t.integer  'user_id'
+    t.integer  'av_rating'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
-  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+  add_index 'blogposts', ['user_id'], name: 'index_blogposts_on_user_id', using: :btree
 
-  create_table "posts", force: :cascade do |t|
-    t.string   "subj"
-    t.text     "content"
-    t.inet     "autor_ip"
-    t.integer  "user_id"
-    t.integer  "rating",     limit: 2
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+  create_table 'delayed_jobs', force: :cascade do |t|
+    t.integer  'priority',   default: 0, null: false
+    t.integer  'attempts',   default: 0, null: false
+    t.text     'handler',                null: false
+    t.text     'last_error'
+    t.datetime 'run_at'
+    t.datetime 'locked_at'
+    t.datetime 'failed_at'
+    t.string   'locked_by'
+    t.string   'queue'
+    t.datetime 'created_at'
+    t.datetime 'updated_at'
   end
 
-  add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
+  add_index 'delayed_jobs', %w(priority run_at), name: 'delayed_jobs_priority', using: :btree
 
-  create_table "rates", force: :cascade do |t|
-    t.integer  "rating",     limit: 2
-    t.integer  "post_id"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+  create_table 'rates', force: :cascade do |t|
+    t.integer  'rating', limit: 2
+    t.integer  'blogpost_id'
+    t.datetime 'created_at',            null: false
+    t.datetime 'updated_at',            null: false
   end
 
-  add_index "rates", ["post_id"], name: "index_rates_on_post_id", using: :btree
+  add_index 'rates', ['blogpost_id'], name: 'index_rates_on_blogpost_id', using: :btree
 
-  create_table "users", force: :cascade do |t|
-    t.string   "login"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'users', force: :cascade do |t|
+    t.string   'login'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
-  add_foreign_key "posts", "users"
-  add_foreign_key "rates", "posts"
+  add_foreign_key 'blogposts', 'users'
+  add_foreign_key 'rates', 'blogposts'
 end

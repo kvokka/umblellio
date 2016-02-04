@@ -85,10 +85,10 @@ end
 #  * zeus: 'zeus rspec' (requires the server to be started separately)
 #  * 'just' rspec: 'rspec'
 
-  guard :rubocop, all_on_start: false do
-    watch(/.+\.rb$/)
-    watch(%r{(?:.+/)?\.rubocop\.yml$}) { |m| File.dirname(m[0]) }
-  end
+guard :rubocop, all_on_start: false do
+  watch(/.+\.rb$/)
+  watch(%r{(?:.+/)?\.rubocop\.yml$}) { |m| File.dirname(m[0]) }
+end
 
 group :red_green_refactor, halt_on_fail: true do
   guard :rspec, cmd: 'bundle exec rspec', failed_mode: :keep do
@@ -136,4 +136,3 @@ group :red_green_refactor, halt_on_fail: true do
     end
   end
 end
-

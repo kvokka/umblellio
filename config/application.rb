@@ -30,7 +30,7 @@ module Umbrellio
       generate.stylesheets false
       generate.test_framework :rspec
       generate.view_specs false
-      generate.fixture_replacement :factory_girl, dir: 'spec/fixtures'
+      generate.fixture_replacement :factory_girl
     end
 
     config.action_controller.action_on_unpermitted_parameters = :raise # Settings in config/environments/* take precedence over those specified here.

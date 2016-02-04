@@ -50,7 +50,7 @@ group :development, :test do
   gem 'bullet'
   gem 'bundler-audit', require: false
   gem 'dotenv-rails'
-  gem 'factory_girl_rails'
+  gem 'factory_girl_rails', require: false
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'pry-doc'

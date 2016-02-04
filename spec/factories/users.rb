@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :user do
-    login 'MyString'
+    login 'usr'
   end
 end
