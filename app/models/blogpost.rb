@@ -8,7 +8,7 @@ class Blogpost < ActiveRecord::Base
     return nil unless (1..5).cover? rate
     self.rate_sum += rate
     self.rate_count += 1
-    self.save
+    save
   end
 
   def rating

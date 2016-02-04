@@ -15,7 +15,7 @@ RSpec.describe RatesController, type: :controller do
       let(:rate_with_value) { create(:rate_with_value) }
       it 'should calc rating' do
         100.times do
-        post :create, blogpost_id: blogpost.id, rates: attributes_for(:rate_with_value, rating: 1), format: :json
+          post :create, blogpost_id: blogpost.id, rates: attributes_for(:rate_with_value, rating: 1), format: :json
         end
         700.times do
           post :create, blogpost_id: blogpost.id, rates: attributes_for(:rate_with_value, rating: 5), format: :json

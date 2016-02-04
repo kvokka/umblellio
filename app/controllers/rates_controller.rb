@@ -3,7 +3,7 @@ class RatesController < ApplicationController
 
   def create
     @rate = Rate.new(rate_params)
-    render( nothing: true) unless @blogpost = Blogpost.find( params[:blogpost_id])
+    render(nothing: true) unless @blogpost = Blogpost.find(params[:blogpost_id])
     @rate.blogpost_id = @blogpost.id
     if @rate.save
       @blogpost&.update_rating!(@rate.rating)
