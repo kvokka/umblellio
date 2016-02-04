@@ -5,7 +5,6 @@ require File.expand_path('../config/application', __FILE__)
 
 Rails.application.load_tasks
 
-require 'dotenv-heroku/tasks' if ENV['RAILS_ENV'] == 'test' || ENV['RAILS_ENV'] == 'development'
 task(:default).clear
 task default: [:spec]
 
@@ -17,6 +16,7 @@ if defined? RSpec
 end
 
 if ENV['RAILS_ENV'] == 'test' || ENV['RAILS_ENV'] == 'development'
+  require 'dotenv-heroku/tasks'
   require 'rubocop/rake_task'
   RuboCop::RakeTask.new
 end
