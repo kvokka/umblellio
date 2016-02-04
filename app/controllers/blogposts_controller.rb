@@ -3,7 +3,7 @@ class BlogpostsController < ApplicationController
 
   def create
     user = User.post_owner create_post_params[:login]
-    @post = Blogpost.create(build_blogpost_params user)
+    @post = Blogpost.create(build_blogpost_params(user))
     respond_with @post
   end
 

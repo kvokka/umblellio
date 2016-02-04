@@ -20,9 +20,10 @@ ActiveRecord::Schema.define(version: 20160204090844) do
     t.text     'content'
     t.inet     'autor_ip'
     t.integer  'user_id'
-    t.integer  'av_rating'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
+    t.integer  'rate_sum',   default: 0
+    t.integer  'rate_count', default: 0
+    t.datetime 'created_at',             null: false
+    t.datetime 'updated_at',             null: false
   end
 
   add_index 'blogposts', ['user_id'], name: 'index_blogposts_on_user_id', using: :btree

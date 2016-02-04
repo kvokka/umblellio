@@ -5,7 +5,8 @@ class CreateBlogposts < ActiveRecord::Migration
       t.text :content
       t.inet :autor_ip
       t.references :user, index: true, foreign_key: true
-      t.integer :av_rating
+      t.integer :rate_sum, default: 0
+      t.integer :rate_count, default: 0
 
       t.timestamps null: false
     end
