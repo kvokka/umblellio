@@ -3,9 +3,14 @@ class RatesController < ApplicationController
 
   def create
     @rate = Rate.new(rate_params)
-    @blogpost = Blogpost.find params[:blogpost_id]
-    @blogpost&.update_rating!(@rate.rating)
-    render json:  @blogpost&.rating
+    render( nothing: true) unless @blogpost = Blogpost.find( params[:blogpost_id])
+    @rate.blogpost_id = @blogpost.id
+    if @rate.save
+      @blogpost&.update_rating!(@rate.rating)
+      render json:  @blogpost&.rating
+    else
+      render nothing: true
+    end
   end
 
   private

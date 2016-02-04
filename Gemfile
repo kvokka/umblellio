@@ -59,10 +59,10 @@ group :development, :test do
   gem 'better_errors'
   gem 'rspec-rails', '~> 3.4.0'
   gem 'fuubar'
+  gem 'faker'
 end
 
 group :test do
-  gem 'faker'
   gem 'capybara-webkit'
   gem 'database_cleaner'
   gem 'formulaic'

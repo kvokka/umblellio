@@ -8,10 +8,11 @@ class Blogpost < ActiveRecord::Base
     return nil unless (1..5).cover? rate
     self.rate_sum += rate
     self.rate_count += 1
+    self.save
   end
 
   def rating
     return 0 if self.rate_count == 0
-    self.rate_sum / self.rate_count
+    (self.rate_sum.to_f / self.rate_count).round(2)
   end
 end
