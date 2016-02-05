@@ -15,4 +15,12 @@ class Blogpost < ActiveRecord::Base
     return 0 if self.rate_count == 0
     (self.rate_sum.to_f / self.rate_count).round(2)
   end
+
+  def self.get_top(n)
+    where('rate_count > 0')
+      .select('*, avg((0.0 + rate_sum)/nullif(rate_count,0)) as rate ')
+      .group('id')
+      .order('rate desc')
+      .limit(n)
+  end
 end
