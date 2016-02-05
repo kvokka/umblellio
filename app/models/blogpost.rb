@@ -16,6 +16,7 @@ class Blogpost < ActiveRecord::Base
     (self.rate_sum.to_f / self.rate_count).round(2)
   end
 
+  # n - count of top rated posts
   def self.get_top(n)
     where('rate_count > 0')
       .select('*, avg((0.0 + rate_sum)/nullif(rate_count,0)) as rate ')
@@ -23,4 +24,14 @@ class Blogpost < ActiveRecord::Base
       .order('rate desc')
       .limit(n)
   end
+
+  def self.users_ip array_of_users_id
+    Blogpost.joins(:user).
+        where('blogposts.user_id IN (?)', array_of_users_id).
+        group('users.login').
+        group('blogposts.autor_ip').
+        order('users.login, blogposts.autor_ip').
+        pluck('users.login', 'blogposts.autor_ip')
+  end
+
 end

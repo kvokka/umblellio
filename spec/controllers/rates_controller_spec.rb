@@ -5,7 +5,6 @@ RSpec.describe RatesController, type: :controller do
     let!(:blogpost) { create(:blogpost) }
     context 'invalid' do
       it 'should do nothing with invalid attr' do
-        #  post :create, blogpost_id: blogpost.id, rates: { rating: 0, blogpost_id: blogpost.id }, format: :json
         post :create, blogpost_id: blogpost.id, rates: { rating: 0 }, format: :json
         expect(response).to have_http_status 200
         expect(response.body).to eq ''
