@@ -18,11 +18,10 @@ class Blogpost < ActiveRecord::Base
 
   # n - count of top rated posts
   def self.get_top(n)
-    where('rate_count > 0')
-      .select('*, avg((0.0 + rate_sum)/nullif(rate_count,0)) as rate ')
-      .group('id')
-      .order('rate desc')
-      .limit(n)
+    where('rate_count > 0').select('subj,content, avg((0.0 + rate_sum)/nullif(rate_count,0)) as rate ').
+        group('id').
+        order('rate desc').
+        limit(n)
   end
 
   def self.users_ip array_of_users_id

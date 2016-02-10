@@ -54,15 +54,42 @@ db/seeds.rb, который генерирует тестовые данные. 
 Задание на знание SQL:
 дана таблица users вида - id, group_id
 
-* create temp table users(id bigserial, group_id bigint);
+1. create temp table users(id bigserial, group_id bigint);
 
-* insert into users(group_id) values (1), (1), (1), (2), (1), (3);
+    create table users1 (id bigserial, group_id bigint)
 
-* В этой таблице, упорядоченой по ID необходимо:
+2. insert into users(group_id) values (1), (1), (1), (2), (1), (3);
 
-* выделить непрерывные группы по group_id с учетом указанного порядка
+    insert into users1(group_id) values (1), (1), (1), (2), (1), (3)
+
+ В этой таблице, упорядоченой по ID необходимо:
+
+3. выделить непрерывные группы по group_id с учетом указанного порядка
 записей (их 4)
 
-* подсчитать количество записей в каждой группе
+select sum(g) from
+(select case when group_id =lag(group_id) over (order by id) then 0 else 1 end as g
+ from users1
+ )as res
 
-* вычислить минимальный ID записи в группе
+4. подсчитать количество записей в каждой группе
+
+SELECT 
+  COUNT(*), group_id 
+FROM 
+(
+ SELECT 
+ ROW_NUMBER() OVER (ORDER BY id) - ROW_NUMBER() OVER (PARTITION BY group_id ORDER BY id) as res,
+ id,
+ group_id
+ FROM users1 
+)RegroupedTable
+GROUP BY group_id,res
+
+5. вычислить минимальный ID записи в группе
+
+select g from
+(select case when group_id =lag(group_id) over (order by id) then null else group_id end as g
+
+ from users1
+ )as res where g is not null
